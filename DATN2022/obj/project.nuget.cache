@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "BgP++EXu3IJNbrK+mxTVOjgHQZxgOvmLbbc1bAYI9EweR+5Br8+RcYNIuKrrynmJqfNGv15opX2CNuv/6n+Z7g==",
+  "dgSpecHash": "hblzMNIzp7qYkUYgkYR/Y6K8LRcQOHCfbd4xVJK71HVQe/Ty+t3+kwPun/Kctv+5VRkbfksLpi0SfLB9/DSYBQ==",
   "success": true,
   "projectFilePath": "D:\\DATN2022\\DATN2022\\DATN2022.csproj",
   "expectedPackageFiles": [
@@ -107,7 +107,8 @@
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512"
+    "C:\\Users\\Admin\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\5.0.17\\microsoft.netcore.app.host.win-x64.5.0.17.nupkg.sha512"
   ],
   "logs": []
 }
