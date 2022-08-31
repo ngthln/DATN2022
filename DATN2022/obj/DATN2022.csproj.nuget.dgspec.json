@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\New folder\\DATN2022\\DATN2022\\DATN2022.csproj": {}
+    "D:\\DATN2022\\DATN2022\\DATN2022.csproj": {}
   },
   "projects": {
-    "D:\\New folder\\DATN2022\\DATN2022\\DATN2022.csproj": {
+    "D:\\DATN2022\\DATN2022\\DATN2022.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\New folder\\DATN2022\\DATN2022\\DATN2022.csproj",
+        "projectUniqueName": "D:\\DATN2022\\DATN2022\\DATN2022.csproj",
         "projectName": "DATN2022",
-        "projectPath": "D:\\New folder\\DATN2022\\DATN2022\\DATN2022.csproj",
+        "projectPath": "D:\\DATN2022\\DATN2022\\DATN2022.csproj",
         "packagesPath": "C:\\Users\\luannt2\\.nuget\\packages\\",
-        "outputPath": "D:\\New folder\\DATN2022\\DATN2022\\obj\\",
+        "outputPath": "D:\\DATN2022\\DATN2022\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\luannt2\\AppData\\Roaming\\NuGet\\NuGet.Config",
