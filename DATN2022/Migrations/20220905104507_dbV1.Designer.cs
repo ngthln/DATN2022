@@ -4,14 +4,16 @@ using DATN2022.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DATN2022.Migrations
 {
     [DbContext(typeof(DATN2022DbContext))]
-    partial class DATN2022DbContextModelSnapshot : ModelSnapshot
+    [Migration("20220905104507_dbV1")]
+    partial class dbV1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,8 +44,8 @@ namespace DATN2022.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("Color")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LisencePlates")
                         .HasColumnType("nvarchar(max)");
@@ -61,9 +63,6 @@ namespace DATN2022.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Color")
-                        .IsUnique();
 
                     b.HasIndex("OwnerId");
 
@@ -107,7 +106,7 @@ namespace DATN2022.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8c914483-bbfd-473d-84a9-0e2ade072b2a"),
+                            Id = new Guid("50243e4a-47b6-4efa-b998-ed24828b208b"),
                             DateOfBirth = new DateTime(1979, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "uncle.bob@gmail.com",
                             FirstName = "Uncle",
@@ -116,27 +115,13 @@ namespace DATN2022.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cad25f1b-f28e-41a2-b1e8-708472e4ca34"),
+                            Id = new Guid("1196700c-a49b-4d2d-8933-ef8b7e056c34"),
                             DateOfBirth = new DateTime(1920, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "vital.bob@gmail.com",
                             FirstName = "Vital",
                             LastName = "Water",
                             PhoneNumber = "666-123-2345"
                         });
-                });
-
-            modelBuilder.Entity("DATN2022.Models.Colors", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Colors");
                 });
 
             modelBuilder.Entity("DATN2022.Models.DropOff", b =>
@@ -161,20 +146,6 @@ namespace DATN2022.Migrations
                     b.ToTable("DropOffs");
                 });
 
-            modelBuilder.Entity("DATN2022.Models.Gender", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Genders");
-                });
-
             modelBuilder.Entity("DATN2022.Models.Pickup", b =>
                 {
                     b.Property<Guid>("Id")
@@ -195,32 +166,6 @@ namespace DATN2022.Migrations
                     b.HasIndex("TripId");
 
                     b.ToTable("Pickups");
-                });
-
-            modelBuilder.Entity("DATN2022.Models.Seat", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Column")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Rank")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Row")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SeatNo")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Seat");
                 });
 
             modelBuilder.Entity("DATN2022.Models.Student", b =>
@@ -306,8 +251,8 @@ namespace DATN2022.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("SeatNo")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("SeatNo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("TicketId")
                         .HasColumnType("uniqueidentifier");
@@ -316,9 +261,6 @@ namespace DATN2022.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("SeatNo")
-                        .IsUnique();
 
                     b.HasIndex("TicketId");
 
@@ -378,12 +320,6 @@ namespace DATN2022.Migrations
 
             modelBuilder.Entity("DATN2022.Models.Coach", b =>
                 {
-                    b.HasOne("DATN2022.Models.Colors", "Colors")
-                        .WithOne("Coach")
-                        .HasForeignKey("DATN2022.Models.Coach", "Color")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DATN2022.Models.Types", "Types")
                         .WithOne("Coach")
                         .HasForeignKey("DATN2022.Models.Coach", "Id")
@@ -395,8 +331,6 @@ namespace DATN2022.Migrations
                         .HasForeignKey("OwnerId");
 
                     b.Navigation("CoachOwner");
-
-                    b.Navigation("Colors");
 
                     b.Navigation("Types");
                 });
@@ -441,25 +375,9 @@ namespace DATN2022.Migrations
 
             modelBuilder.Entity("DATN2022.Models.TicketDetail", b =>
                 {
-                    b.HasOne("DATN2022.Models.Gender", "Gender")
-                        .WithOne("TicketDetail")
-                        .HasForeignKey("DATN2022.Models.TicketDetail", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DATN2022.Models.Seat", "Seat")
-                        .WithOne("TicketDetail")
-                        .HasForeignKey("DATN2022.Models.TicketDetail", "SeatNo")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DATN2022.Models.Ticket", "Ticket")
                         .WithMany("TicketDetails")
                         .HasForeignKey("TicketId");
-
-                    b.Navigation("Gender");
-
-                    b.Navigation("Seat");
 
                     b.Navigation("Ticket");
                 });
@@ -481,21 +399,6 @@ namespace DATN2022.Migrations
             modelBuilder.Entity("DATN2022.Models.CoachOwner", b =>
                 {
                     b.Navigation("Coaches");
-                });
-
-            modelBuilder.Entity("DATN2022.Models.Colors", b =>
-                {
-                    b.Navigation("Coach");
-                });
-
-            modelBuilder.Entity("DATN2022.Models.Gender", b =>
-                {
-                    b.Navigation("TicketDetail");
-                });
-
-            modelBuilder.Entity("DATN2022.Models.Seat", b =>
-                {
-                    b.Navigation("TicketDetail");
                 });
 
             modelBuilder.Entity("DATN2022.Models.Student", b =>
