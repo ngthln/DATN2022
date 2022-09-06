@@ -6328,7 +6328,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "C:\\Users\\luannt2\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -6336,11 +6336,11 @@
       "projectUniqueName": "D:\\DATN2022\\DATN2022\\DATN2022.csproj",
       "projectName": "DATN2022",
       "projectPath": "D:\\DATN2022\\DATN2022\\DATN2022.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\luannt2\\.nuget\\packages\\",
       "outputPath": "D:\\DATN2022\\DATN2022\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\luannt2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6348,6 +6348,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "D:\\HDDT\\Project\\einvoice\\lib\\FlexCel": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6406,12 +6407,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.17, 5.0.17]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
