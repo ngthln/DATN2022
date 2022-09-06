@@ -7,6 +7,19 @@ namespace DATN2022.DBContext
     public class DATN2022DbContext : DbContext
     {
         public DbSet<CoachOwner> CoachOwners { get; set; }
+        public DbSet<Coach> Coaches { get; set; }
+        public DbSet<Trip> Trips { get; set; }
+        public DbSet<Pickup> Pickups { get; set; }
+        public DbSet<DropOff> DropOffs { get; set; }
+        public DbSet<Account> Accounts { get; set; }
+        public DbSet<StudentAddress> StudentAddresses { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Types> Types { get; set; }
+        public DbSet<Colors> Colors { get; set; }
+        public DbSet<Gender> Genders { get; set; }
+        public DbSet<Seat> Seat { get; set; }
+        // public DbSet<Colors> Colors { get; set; }
+
         public DATN2022DbContext(DbContextOptions<DATN2022DbContext> options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

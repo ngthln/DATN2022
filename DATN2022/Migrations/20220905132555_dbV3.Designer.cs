@@ -4,14 +4,16 @@ using DATN2022.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DATN2022.Migrations
 {
     [DbContext(typeof(DATN2022DbContext))]
-    partial class DATN2022DbContextModelSnapshot : ModelSnapshot
+    [Migration("20220905132555_dbV3")]
+    partial class dbV3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,7 +109,7 @@ namespace DATN2022.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8c914483-bbfd-473d-84a9-0e2ade072b2a"),
+                            Id = new Guid("d4c60bb0-c0dc-48dc-862e-3d28147978f9"),
                             DateOfBirth = new DateTime(1979, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "uncle.bob@gmail.com",
                             FirstName = "Uncle",
@@ -116,7 +118,7 @@ namespace DATN2022.Migrations
                         },
                         new
                         {
-                            Id = new Guid("cad25f1b-f28e-41a2-b1e8-708472e4ca34"),
+                            Id = new Guid("bb5fd488-9050-4e11-85e0-2341a18c904e"),
                             DateOfBirth = new DateTime(1920, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "vital.bob@gmail.com",
                             FirstName = "Vital",
