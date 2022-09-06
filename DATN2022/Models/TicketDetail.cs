@@ -6,7 +6,8 @@ namespace DATN2022.Models
 {
     public class TicketDetail
     {
-        [ForeignKey("Gender")]
+       
+      
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
@@ -16,9 +17,10 @@ namespace DATN2022.Models
         public int CustomerAge { get; set; }
         public int CustomerPhone { get; set; }
         public string IdentityCertificate { get; set; }
-
         [ForeignKey("Seat")]
         public Guid SeatNo { get; set; }
+        [ForeignKey("Gender")]
+        public Guid CustomerGender { get; set; }
         public int Quantity { get; set; }
         public Guid? TicketId { get; set; }
 

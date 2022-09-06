@@ -56,7 +56,7 @@ namespace DATN2022.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -64,7 +64,20 @@ namespace DATN2022.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Seat",
+                name: "Layouts",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Layouts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Seats",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -76,7 +89,7 @@ namespace DATN2022.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Seat", x => x.Id);
+                    table.PrimaryKey("PK_Seats", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -192,7 +205,7 @@ namespace DATN2022.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Ticket",
+                name: "Tickets",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -200,9 +213,9 @@ namespace DATN2022.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ticket", x => x.Id);
+                    table.PrimaryKey("PK_Tickets", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Ticket_Trips_TripId",
+                        name: "FK_Tickets_Trips_TripId",
                         column: x => x.TripId,
                         principalTable: "Trips",
                         principalColumn: "Id",
@@ -210,7 +223,7 @@ namespace DATN2022.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TicketDetail",
+                name: "TicketDetails",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -221,28 +234,29 @@ namespace DATN2022.Migrations
                     CustomerPhone = table.Column<int>(type: "int", nullable: false),
                     IdentityCertificate = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SeatNo = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CustomerGender = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TicketDetail", x => x.Id);
+                    table.PrimaryKey("PK_TicketDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TicketDetail_Genders_Id",
-                        column: x => x.Id,
+                        name: "FK_TicketDetails_Genders_CustomerGender",
+                        column: x => x.CustomerGender,
                         principalTable: "Genders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TicketDetail_Seat_SeatNo",
+                        name: "FK_TicketDetails_Seats_SeatNo",
                         column: x => x.SeatNo,
-                        principalTable: "Seat",
+                        principalTable: "Seats",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TicketDetail_Ticket_TicketId",
+                        name: "FK_TicketDetails_Tickets_TicketId",
                         column: x => x.TicketId,
-                        principalTable: "Ticket",
+                        principalTable: "Tickets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -250,12 +264,12 @@ namespace DATN2022.Migrations
             migrationBuilder.InsertData(
                 table: "CoachOwners",
                 columns: new[] { "Id", "Address", "DateOfBirth", "Email", "FirstName", "LastName", "LisenseNo", "Nationality", "PhoneNumber" },
-                values: new object[] { new Guid("609b05d7-06a9-450f-9e74-ff9be49d12c9"), null, new DateTime(1979, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "uncle.bob@gmail.com", "Uncle", "Bob", 0, null, "999-888-7777" });
+                values: new object[] { new Guid("9dee0a21-f185-4e19-bc3c-3a58d7a3aa51"), null, new DateTime(1979, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "uncle.bob@gmail.com", "Uncle", "Bob", 0, null, "999-888-7777" });
 
             migrationBuilder.InsertData(
                 table: "CoachOwners",
                 columns: new[] { "Id", "Address", "DateOfBirth", "Email", "FirstName", "LastName", "LisenseNo", "Nationality", "PhoneNumber" },
-                values: new object[] { new Guid("1e9595b7-a598-43f0-816d-396223341eac"), null, new DateTime(1920, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "vital.bob@gmail.com", "Vital", "Water", 0, null, "666-123-2345" });
+                values: new object[] { new Guid("bdca49cf-cb1a-4967-9fcd-e7c696ab35b1"), null, new DateTime(1920, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "vital.bob@gmail.com", "Vital", "Water", 0, null, "666-123-2345" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Coaches_Color",
@@ -279,20 +293,26 @@ namespace DATN2022.Migrations
                 column: "TripId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Ticket_TripId",
-                table: "Ticket",
-                column: "TripId");
+                name: "IX_TicketDetails_CustomerGender",
+                table: "TicketDetails",
+                column: "CustomerGender",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketDetail_SeatNo",
-                table: "TicketDetail",
+                name: "IX_TicketDetails_SeatNo",
+                table: "TicketDetails",
                 column: "SeatNo",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketDetail_TicketId",
-                table: "TicketDetail",
+                name: "IX_TicketDetails_TicketId",
+                table: "TicketDetails",
                 column: "TicketId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_TripId",
+                table: "Tickets",
+                column: "TripId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trips_CoachId",
@@ -309,19 +329,22 @@ namespace DATN2022.Migrations
                 name: "DropOffs");
 
             migrationBuilder.DropTable(
+                name: "Layouts");
+
+            migrationBuilder.DropTable(
                 name: "Pickups");
 
             migrationBuilder.DropTable(
-                name: "TicketDetail");
+                name: "TicketDetails");
 
             migrationBuilder.DropTable(
                 name: "Genders");
 
             migrationBuilder.DropTable(
-                name: "Seat");
+                name: "Seats");
 
             migrationBuilder.DropTable(
-                name: "Ticket");
+                name: "Tickets");
 
             migrationBuilder.DropTable(
                 name: "Trips");

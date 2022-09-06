@@ -10,14 +10,14 @@ namespace DATN2022.DBContext
         public DbSet<Coach> Coaches { get; set; }
         public DbSet<Trip> Trips { get; set; }
         public DbSet<Pickup> Pickups { get; set; }
-        public DbSet<DropOff> DropOffs { get; set; }
+        public DbSet<DropOff> DropOffs { get; set; }    
         public DbSet<Account> Accounts { get; set; }
-       
         public DbSet<Types> Types { get; set; }
         public DbSet<Colors> Colors { get; set; }
         public DbSet<Gender> Genders { get; set; }
-        public DbSet<Seat> Seat { get; set; }
-
+        public DbSet<Seat> Seats { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketDetail> TicketDetails { get; set; }
         public DbSet<Layout> Layouts { get; set; }
         // public DbSet<Colors> Colors { get; set; }
 

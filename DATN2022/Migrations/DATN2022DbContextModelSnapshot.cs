@@ -107,7 +107,7 @@ namespace DATN2022.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("609b05d7-06a9-450f-9e74-ff9be49d12c9"),
+                            Id = new Guid("9dee0a21-f185-4e19-bc3c-3a58d7a3aa51"),
                             DateOfBirth = new DateTime(1979, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "uncle.bob@gmail.com",
                             FirstName = "Uncle",
@@ -117,7 +117,7 @@ namespace DATN2022.Migrations
                         },
                         new
                         {
-                            Id = new Guid("1e9595b7-a598-43f0-816d-396223341eac"),
+                            Id = new Guid("bdca49cf-cb1a-4967-9fcd-e7c696ab35b1"),
                             DateOfBirth = new DateTime(1920, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "vital.bob@gmail.com",
                             FirstName = "Vital",
@@ -169,12 +169,29 @@ namespace DATN2022.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.ToTable("Genders");
+                });
+
+            modelBuilder.Entity("DATN2022.Models.Layout", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Layouts");
                 });
 
             modelBuilder.Entity("DATN2022.Models.Pickup", b =>
@@ -222,7 +239,7 @@ namespace DATN2022.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Seat");
+                    b.ToTable("Seats");
                 });
 
             modelBuilder.Entity("DATN2022.Models.Ticket", b =>
@@ -238,7 +255,7 @@ namespace DATN2022.Migrations
 
                     b.HasIndex("TripId");
 
-                    b.ToTable("Ticket");
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("DATN2022.Models.TicketDetail", b =>
@@ -252,6 +269,9 @@ namespace DATN2022.Migrations
 
                     b.Property<int>("CustomerAge")
                         .HasColumnType("int");
+
+                    b.Property<Guid>("CustomerGender")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("CustomerName")
                         .HasColumnType("nvarchar(max)");
@@ -276,12 +296,15 @@ namespace DATN2022.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CustomerGender")
+                        .IsUnique();
+
                     b.HasIndex("SeatNo")
                         .IsUnique();
 
                     b.HasIndex("TicketId");
 
-                    b.ToTable("TicketDetail");
+                    b.ToTable("TicketDetails");
                 });
 
             modelBuilder.Entity("DATN2022.Models.Trip", b =>
@@ -391,7 +414,7 @@ namespace DATN2022.Migrations
                 {
                     b.HasOne("DATN2022.Models.Gender", "Gender")
                         .WithOne("TicketDetail")
-                        .HasForeignKey("DATN2022.Models.TicketDetail", "Id")
+                        .HasForeignKey("DATN2022.Models.TicketDetail", "CustomerGender")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

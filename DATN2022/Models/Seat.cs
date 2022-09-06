@@ -16,7 +16,7 @@ namespace DATN2022.Models
         public string Rank { get; set; }
         public string Row { get; set; }
         public string Column { get; set; }
-
+      
         public virtual TicketDetail TicketDetail { get; set; }
     }
 }

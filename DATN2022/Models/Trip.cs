@@ -14,7 +14,7 @@ namespace DATN2022.Models
         public string To { get; set; }
         public DateTime DepartureTime { get; set; }
         public int TripNo { get; set; }
-        public int UnitPrice { get; set; }
+        public double UnitPrice { get; set; }
         public Guid? CoachId { get; set; }
 
         [ForeignKey("CoachId")]
