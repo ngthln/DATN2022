@@ -17,7 +17,7 @@ namespace DATN2022.Models
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string Nationality { get; set; }
-        public string LisenseNo { get; set; }
+        public int LisenseNo { get; set; }
         public string Address { get; set; }
 
         public virtual ICollection<Coach> Coaches { get; set; }

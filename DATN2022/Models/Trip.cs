@@ -13,7 +13,7 @@ namespace DATN2022.Models
         public string From { get; set; }
         public string To { get; set; }
         public DateTime DepartureTime { get; set; }
-        public string TripNo { get; set; }
+        public int TripNo { get; set; }
         public int UnitPrice { get; set; }
         public Guid? CoachId { get; set; }
 

@@ -19,7 +19,7 @@ namespace DATN2022.Models
         [ForeignKey("Colors")]
         public Guid Color { get; set; }
         public string LisencePlates { get; set; }
-        public string Reserve { get; set; }
+        public bool Reserve { get; set; }
 
         public Guid? OwnerId { get; set; }
 

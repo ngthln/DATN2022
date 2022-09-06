@@ -12,12 +12,13 @@ namespace DATN2022.DBContext
         public DbSet<Pickup> Pickups { get; set; }
         public DbSet<DropOff> DropOffs { get; set; }
         public DbSet<Account> Accounts { get; set; }
-        public DbSet<StudentAddress> StudentAddresses { get; set; }
-        public DbSet<Student> Students { get; set; }
+       
         public DbSet<Types> Types { get; set; }
         public DbSet<Colors> Colors { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Seat> Seat { get; set; }
+
+        public DbSet<Layout> Layouts { get; set; }
         // public DbSet<Colors> Colors { get; set; }
 
         public DATN2022DbContext(DbContextOptions<DATN2022DbContext> options) : base(options) { }

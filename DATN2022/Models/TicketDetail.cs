@@ -11,10 +11,10 @@ namespace DATN2022.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string CustomerName { get; set; }
-        public string TicketNo { get; set; }
+        public int TicketNo { get; set; }
         public string CustomerAddress { get; set; }
-        public string CustomerAge { get; set; }
-        public string CustomerPhone { get; set; }
+        public int CustomerAge { get; set; }
+        public int CustomerPhone { get; set; }
         public string IdentityCertificate { get; set; }
 
         [ForeignKey("Seat")]

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DATN2022.Migrations
 {
     [DbContext(typeof(DATN2022DbContext))]
-    [Migration("20220905124442_dbV2")]
-    partial class dbV2
+    [Migration("20220906034327_DATN2022Migrations")]
+    partial class DATN2022Migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,8 +53,8 @@ namespace DATN2022.Migrations
                     b.Property<Guid?>("OwnerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Reserve")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Reserve")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("Schedule")
                         .HasColumnType("datetime2");
@@ -93,8 +93,8 @@ namespace DATN2022.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LisenseNo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("LisenseNo")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nationality")
                         .HasColumnType("nvarchar(max)");
@@ -109,20 +109,22 @@ namespace DATN2022.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("49879f62-52f9-4f23-b6e0-cb913730b092"),
+                            Id = new Guid("609b05d7-06a9-450f-9e74-ff9be49d12c9"),
                             DateOfBirth = new DateTime(1979, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "uncle.bob@gmail.com",
                             FirstName = "Uncle",
                             LastName = "Bob",
+                            LisenseNo = 0,
                             PhoneNumber = "999-888-7777"
                         },
                         new
                         {
-                            Id = new Guid("b1d8d11f-c694-4f1d-a8e3-35fdd6b82abb"),
+                            Id = new Guid("1e9595b7-a598-43f0-816d-396223341eac"),
                             DateOfBirth = new DateTime(1920, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "vital.bob@gmail.com",
                             FirstName = "Vital",
                             LastName = "Water",
+                            LisenseNo = 0,
                             PhoneNumber = "666-123-2345"
                         });
                 });
@@ -163,6 +165,20 @@ namespace DATN2022.Migrations
                     b.ToTable("DropOffs");
                 });
 
+            modelBuilder.Entity("DATN2022.Models.Gender", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genders");
+                });
+
             modelBuilder.Entity("DATN2022.Models.Pickup", b =>
                 {
                     b.Property<Guid>("Id")
@@ -185,47 +201,30 @@ namespace DATN2022.Migrations
                     b.ToTable("Pickups");
                 });
 
-            modelBuilder.Entity("DATN2022.Models.Student", b =>
+            modelBuilder.Entity("DATN2022.Models.Seat", b =>
                 {
-                    b.Property<int>("StudentId")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("StudentName")
+                    b.Property<string>("Column")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("StudentId");
+                    b.Property<string>("Rank")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Students");
-                });
+                    b.Property<string>("Row")
+                        .HasColumnType("nvarchar(max)");
 
-            modelBuilder.Entity("DATN2022.Models.StudentAddress", b =>
-                {
-                    b.Property<int>("StudentAddressId")
+                    b.Property<int>("SeatNo")
                         .HasColumnType("int");
 
-                    b.Property<string>("Address1")
+                    b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Address2")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("Id");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Zipcode")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentAddressId");
-
-                    b.ToTable("StudentAddresses");
+                    b.ToTable("Seat");
                 });
 
             modelBuilder.Entity("DATN2022.Models.Ticket", b =>
@@ -253,14 +252,14 @@ namespace DATN2022.Migrations
                     b.Property<string>("CustomerAddress")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CustomerAge")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CustomerAge")
+                        .HasColumnType("int");
 
                     b.Property<string>("CustomerName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CustomerPhone")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("CustomerPhone")
+                        .HasColumnType("int");
 
                     b.Property<string>("IdentityCertificate")
                         .HasColumnType("nvarchar(max)");
@@ -268,16 +267,19 @@ namespace DATN2022.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("SeatNo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("SeatNo")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("TicketId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("TicketNo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TicketNo")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SeatNo")
+                        .IsUnique();
 
                     b.HasIndex("TicketId");
 
@@ -302,8 +304,8 @@ namespace DATN2022.Migrations
                     b.Property<string>("To")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TripNo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TripNo")
+                        .HasColumnType("int");
 
                     b.Property<int>("UnitPrice")
                         .HasColumnType("int");
@@ -378,17 +380,6 @@ namespace DATN2022.Migrations
                     b.Navigation("Trip");
                 });
 
-            modelBuilder.Entity("DATN2022.Models.StudentAddress", b =>
-                {
-                    b.HasOne("DATN2022.Models.Student", "Student")
-                        .WithOne("Address")
-                        .HasForeignKey("DATN2022.Models.StudentAddress", "StudentAddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("DATN2022.Models.Ticket", b =>
                 {
                     b.HasOne("DATN2022.Models.Trip", "Trip")
@@ -400,9 +391,25 @@ namespace DATN2022.Migrations
 
             modelBuilder.Entity("DATN2022.Models.TicketDetail", b =>
                 {
+                    b.HasOne("DATN2022.Models.Gender", "Gender")
+                        .WithOne("TicketDetail")
+                        .HasForeignKey("DATN2022.Models.TicketDetail", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DATN2022.Models.Seat", "Seat")
+                        .WithOne("TicketDetail")
+                        .HasForeignKey("DATN2022.Models.TicketDetail", "SeatNo")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DATN2022.Models.Ticket", "Ticket")
                         .WithMany("TicketDetails")
                         .HasForeignKey("TicketId");
+
+                    b.Navigation("Gender");
+
+                    b.Navigation("Seat");
 
                     b.Navigation("Ticket");
                 });
@@ -431,9 +438,14 @@ namespace DATN2022.Migrations
                     b.Navigation("Coach");
                 });
 
-            modelBuilder.Entity("DATN2022.Models.Student", b =>
+            modelBuilder.Entity("DATN2022.Models.Gender", b =>
                 {
-                    b.Navigation("Address");
+                    b.Navigation("TicketDetail");
+                });
+
+            modelBuilder.Entity("DATN2022.Models.Seat", b =>
+                {
+                    b.Navigation("TicketDetail");
                 });
 
             modelBuilder.Entity("DATN2022.Models.Ticket", b =>

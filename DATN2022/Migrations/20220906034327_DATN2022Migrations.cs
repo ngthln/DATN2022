@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DATN2022.Migrations
 {
-    public partial class dbV1 : Migration
+    public partial class DATN2022Migrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -31,7 +31,7 @@ namespace DATN2022.Migrations
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Nationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LisenseNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LisenseNo = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -40,16 +40,43 @@ namespace DATN2022.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Students",
+                name: "Colors",
                 columns: table => new
                 {
-                    StudentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.StudentId);
+                    table.PrimaryKey("PK_Colors", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Genders",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Seat",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SeatNo = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rank = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Row = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Column = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seat", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -67,38 +94,15 @@ namespace DATN2022.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentAddresses",
-                columns: table => new
-                {
-                    StudentAddressId = table.Column<int>(type: "int", nullable: false),
-                    Address1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Zipcode = table.Column<int>(type: "int", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StudentAddresses", x => x.StudentAddressId);
-                    table.ForeignKey(
-                        name: "FK_StudentAddresses_Students_StudentAddressId",
-                        column: x => x.StudentAddressId,
-                        principalTable: "Students",
-                        principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Coaches",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Schedule = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Color = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Color = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LisencePlates = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Reserve = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Reserve = table.Column<bool>(type: "bit", nullable: false),
                     OwnerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
@@ -110,6 +114,12 @@ namespace DATN2022.Migrations
                         principalTable: "CoachOwners",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Coaches_Colors_Color",
+                        column: x => x.Color,
+                        principalTable: "Colors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Coaches_Types_Id",
                         column: x => x.Id,
@@ -126,7 +136,7 @@ namespace DATN2022.Migrations
                     From = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     To = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepartureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TripNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TripNo = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<int>(type: "int", nullable: false),
                     CoachId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
@@ -205,18 +215,30 @@ namespace DATN2022.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TicketNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TicketNo = table.Column<int>(type: "int", nullable: false),
                     CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerAge = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CustomerPhone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CustomerAge = table.Column<int>(type: "int", nullable: false),
+                    CustomerPhone = table.Column<int>(type: "int", nullable: false),
                     IdentityCertificate = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SeatNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SeatNo = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     TicketId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TicketDetail", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TicketDetail_Genders_Id",
+                        column: x => x.Id,
+                        principalTable: "Genders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TicketDetail_Seat_SeatNo",
+                        column: x => x.SeatNo,
+                        principalTable: "Seat",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TicketDetail_Ticket_TicketId",
                         column: x => x.TicketId,
@@ -228,12 +250,18 @@ namespace DATN2022.Migrations
             migrationBuilder.InsertData(
                 table: "CoachOwners",
                 columns: new[] { "Id", "Address", "DateOfBirth", "Email", "FirstName", "LastName", "LisenseNo", "Nationality", "PhoneNumber" },
-                values: new object[] { new Guid("50243e4a-47b6-4efa-b998-ed24828b208b"), null, new DateTime(1979, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "uncle.bob@gmail.com", "Uncle", "Bob", null, null, "999-888-7777" });
+                values: new object[] { new Guid("609b05d7-06a9-450f-9e74-ff9be49d12c9"), null, new DateTime(1979, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "uncle.bob@gmail.com", "Uncle", "Bob", 0, null, "999-888-7777" });
 
             migrationBuilder.InsertData(
                 table: "CoachOwners",
                 columns: new[] { "Id", "Address", "DateOfBirth", "Email", "FirstName", "LastName", "LisenseNo", "Nationality", "PhoneNumber" },
-                values: new object[] { new Guid("1196700c-a49b-4d2d-8933-ef8b7e056c34"), null, new DateTime(1920, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "vital.bob@gmail.com", "Vital", "Water", null, null, "666-123-2345" });
+                values: new object[] { new Guid("1e9595b7-a598-43f0-816d-396223341eac"), null, new DateTime(1920, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "vital.bob@gmail.com", "Vital", "Water", 0, null, "666-123-2345" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Coaches_Color",
+                table: "Coaches",
+                column: "Color",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Coaches_OwnerId",
@@ -254,6 +282,12 @@ namespace DATN2022.Migrations
                 name: "IX_Ticket_TripId",
                 table: "Ticket",
                 column: "TripId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TicketDetail_SeatNo",
+                table: "TicketDetail",
+                column: "SeatNo",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_TicketDetail_TicketId",
@@ -278,13 +312,13 @@ namespace DATN2022.Migrations
                 name: "Pickups");
 
             migrationBuilder.DropTable(
-                name: "StudentAddresses");
-
-            migrationBuilder.DropTable(
                 name: "TicketDetail");
 
             migrationBuilder.DropTable(
-                name: "Students");
+                name: "Genders");
+
+            migrationBuilder.DropTable(
+                name: "Seat");
 
             migrationBuilder.DropTable(
                 name: "Ticket");
@@ -297,6 +331,9 @@ namespace DATN2022.Migrations
 
             migrationBuilder.DropTable(
                 name: "CoachOwners");
+
+            migrationBuilder.DropTable(
+                name: "Colors");
 
             migrationBuilder.DropTable(
                 name: "Types");
