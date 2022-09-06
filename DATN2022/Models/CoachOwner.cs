@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DATN2022.Models
 {
@@ -17,6 +19,8 @@ namespace DATN2022.Models
         public string Nationality { get; set; }
         public string LisenseNo { get; set; }
         public string Address { get; set; }
+
+        public virtual ICollection<Coach> Coaches { get; set; }
 
     }
 }
